@@ -211,13 +211,71 @@ eventHandler : 이벤트 발생 시 호출되는 함수
 
 
 ## 6. array, object state 변경하는 법
+### array, object state
+배열, 객체 데이터를 state에 보관할 경우, 이들을 다루기 위해 원본을 보존해야 함
+- 변경해야 하는 경우, copy 본을 만들고(let 복사본=[...객체(or배열)])
+- 복사본을 변경하여
+- 이를 state 변경 함수의 인자로 넣는다
+#### state 변경함수의 원리
+state 변경함수 : 호출 될 경우
+- 기존 state와 신규 state를 비교(==) -> 같으면 변경 X
+- array와 object는 값을 담는 메모리 주소를 바라본다!!
+    - let arr = [1, 2, 3]; 
+        - 1. [1, 2, 3]이라는 배열이 RAM에 저장
+        - 2. arr라는 변수가 그 주소를 바라봄
+    - let copy = arr; 
+        - 1. copy는 arr가 바라보는 주소를 바라보게 된다
+    - copy[1] = 100;
+        - 1. copy가 바라보는 메모리주소에 저장된 배열 [1, 2, 3]의 1번 인덱스 값을 100으로 변경
+        - 2. arr도 같은 주소를 바라보고 있기 때문에 [1, 100, 3]
+    - 위와 같은 이유로, 배열 혹은 객체를 state변경하기 위해서는 복사본으로 다뤄야 한다(reference data type의 특징,,)
+
+### Ch 6 결과
+![Alt text](<images/5 - Ch 6 결과.PNG>)
+
 
 
 ## 7. Component : 많은 div들을 한 단어로 줄이고 싶으면
+### 상세 페이지 만들기
+글 제목 클릭 시, 해당 글의 상세 내용을 담은 modal이 튀어나오게 해보자!!
+- 각 게시글 별로 상세 페이지 필요 -> 반복하지 말고 하나 만들어서 계속 쓰자!!!
+
+#### component
+component : 리액트 프로젝트의 구성요소
+
+### Ch 7 결과
+![Alt text](<images/6 - Ch 7 결과.PNG>)
+
+
+
 ## 8. 리액트 환경에서 동적인 UI 만드는 법(modal 창 만들기)
+return() 내부에서 중괄호 안에 if를 못씀 -> 삼항 연산자(? :) 또는 && 사용!
+
+### Ch 8 결과
+![Alt text](<images/7 - Ch 7 결과 - 1.PNG>)
+
+![Alt text](<images/8 - Ch 7 결과 - 2.PNG>)
+
 ## 9. map : 많은 div들을 반복문으로 줄이고 싶은 충동이 들 때
+return() 내부에서 중괄호 안에 for을 못씀 -> map()함수 사용!
+
+### Ch 9 결과
+Modal 컴포넌트
+- ![Alt text](<images/9 - Ch 9 결과 - 1(Modal).PNG>)
+Article 컴포넌트
+- ![Alt text](<images/10 - Ch 9 결과 - 2(Article).PNG>)
+App 컴포넌트(Articles.map((Article, index) {}))
+- ![Alt text](<images/11 - Ch 9 결과 - 3(App).PNG>)
+
 ## 10. 자식이 부모의 state를 가져다쓰고 싶을 때는 props
+부모 component에서 자식 component로 state 전송 가능
+- props 문법을 활용하여 전송
+- ex. App 컴포넌트(부모)의 state를 Article 컴포넌트(자식)에서 활용 가능
 ## 11. props를 응용한 상세페이지 만들기
+
+둘다 사실상 Ch9에서 응용으로 같이 함;
+Zustand : 상태 관리 라이브러리
+
 ## 12. input 1 : 사용자가 입력한 글 다루기
 ## 13. input 2 : 블로그 글 발행 기능 만들기
 ## 14. class를 이용한 옛날 React 문법
