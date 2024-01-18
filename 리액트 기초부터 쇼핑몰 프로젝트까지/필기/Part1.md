@@ -128,6 +128,9 @@ App.js에서 html 구문 생성
 - 이것을 index.html로 전달
 - 어떤 걸 통해서? index.js를 통해서!!!!
 
+
+
+
 ## 3. 리액트에서 레이아웃 만들 때 쓰는 JSX 문법 3개
 ### JSX
 JSX(JavaScript Syntax Extension) : JS의 확장된 문법
@@ -158,13 +161,12 @@ JSX(JavaScript Syntax Extension) : JS의 확장된 문법
 ![Alt text](<images/2 - Ch 3 결과.PNG>)
 
 
-## 4. 중요한 데이터는 변수 말고 state에 담습니다
 
+## 4. 중요한 데이터는 변수 말고 state에 담습니
 ### 주의사항 하나!!
 우리가 HTML 코드를 짜는 공간 : return() 내부
 - return 내부에서 가장 큰 태그는 하나!!
     - 같은 독립 두 개의 태그가 가장 위에 있으면 안됩니다~~
-
 
 ### React에서 변수 담는 방법
 1. let, var, const 사용
@@ -187,8 +189,9 @@ state : 컴포넌트 내부에서 변경 가능한 데이터를 다루기 위해
 ### Ch4 결과
 ![Alt text](<images/3 - Ch 4 결과.PNG>)
 
-## 5. 버튼에 기능개발을 해보자 & 리액트 state 변경하는 법
 
+
+## 5. 버튼에 기능개발을 해보자 & 리액트 state 변경하는 법
 ### eventHandler
 event : 발생하는 모든 것
 - 클릭, 엔터키 등등...
@@ -204,6 +207,8 @@ eventHandler : 이벤트 발생 시 호출되는 함수
 
 ### Ch 5 결과
 ![Alt text](<images/4 - Ch 5 결과.PNG>)
+
+
 
 ## 6. array, object state 변경하는 법
 
