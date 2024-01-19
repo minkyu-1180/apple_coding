@@ -22,7 +22,7 @@ function Modal(props) {
 // Article 컴포넌트(App 컴포넌트 안의 map 함수에서 작동)
 function Article(props) {
   return (
-    <div className="list" key={props.key}>
+    <div className="list">
       <h4>게시글 : {props.title} <span onClick={
         () => {
           // 부모 컴포넌트로부터 받아온 state 변경 함수
@@ -42,8 +42,11 @@ function Article(props) {
           title={props.title}
           date={props.date}
           content={props.content}
-        />}      
+        />} 
+      <button onClick={() => {props.deleteArticle(props.index)}}>
+        글 삭제</button>     
     </div>
+
   )
 }
 
@@ -68,14 +71,39 @@ function App() {
       likes: 23,
     }
   ]);
-  let [showModal, setShowModal] = useState([false, false, false]);
-  
+  // articles 배열의 길이 만큼 Array 생성 후, 각 원소를 false로 채운다
+  let [showModal, setShowModal] = useState(Array(articles.length).fill(false));
+  // 게시글 작성 시 입력 타이틀
+  let [inputTitle, setInputTitle] = useState("");
+  // 게시글 작성 시 입력 콘텐츠
+  let [inputContent, setInputContent] = useState("");
+  // 게시글 작성 시간
+  let today = new Date();
+
   function setLikes (index) {
     const newArticles = [...articles];
     newArticles[index].likes = newArticles[index].likes+1;
     setArticles(newArticles)
   }
-  
+  function deleteArticle (index) {
+    const newArticles = [...articles];
+    // 배열의 index 번호에 있는 원소를 제거
+    newArticles.splice(index, 1);
+    setArticles(newArticles)
+  }
+  function addArticle (title, content) {
+    const newArticles = [...articles];
+    const article = {
+      title:title,
+      // getMonth() : index로 가져오는 듯?
+      date:`${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`,
+      content:content,
+      likes:0,
+    }
+    newArticles.push(article);
+    setArticles(newArticles);
+  }
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -94,30 +122,33 @@ function App() {
               showModal={showModal}
               setShowModal={setShowModal}
               setLikes={setLikes}
+              deleteArticle={deleteArticle}
             />
-            // <div className="list">
-            //   <h4>게시글 제목 : {x.title}</h4>
-            //   <p>글 발행 날짜 : {x.date}</p>
-            //   {/* 상세 페이지 활성화/비활성화 버튼 */}
-            //   <button onClick={() =>  {
-            //     // 해당 index의 게시글의 값을 반대로
-            //     let newShowModal = [...showModal];
-            //     newShowModal[index] = !newShowModal[index];
-            //     return (setShowModal(newShowModal));
-            //   }}>
-            //     {/* true면 닫고, false면 열기 */}
-            //     {showModal[index] ? "상세 내용 닫기" : "상세 내용 보기"}</button>
-            //     {/* true면 모달창 띄우기 */}
-            //     {showModal[index] && 
-            //     <Modal 
-            //       title={x.title}
-            //       date={x.date}
-            //       content={x.content}
-            //     />}
-            // </div>
           )
         })
       }
+      <input onChange={(e) => {
+        setInputTitle(e.target.value);
+        // console.log(inputValue);
+      }} type="text"/>
+      <textarea onChange={(e) => {
+        setInputContent(e.target.value);
+      }}></textarea>
+      <button onClick={() => {
+        addArticle(inputTitle, inputContent);
+        }
+      }>글 작성하기</button>
+    
+        {/* 
+        <input type="range" />
+        <input type="checkbox" />
+        <input type="date" />
+        <select>
+          <option value="">선택해!!</option>
+          <option value="first">1</option>
+          <option value="second">2</option>
+        </select>
+      */}
     </div>
   );
 }

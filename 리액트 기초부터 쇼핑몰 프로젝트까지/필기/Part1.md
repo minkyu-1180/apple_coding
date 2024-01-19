@@ -274,9 +274,47 @@ App 컴포넌트(Articles.map((Article, index) {}))
 ## 11. props를 응용한 상세페이지 만들기
 
 둘다 사실상 Ch9에서 응용으로 같이 함;
+
+#### Zustand
 Zustand : 상태 관리 라이브러리
+- 용수 형이 추천해준 라이브러리
 
 ## 12. input 1 : 사용자가 입력한 글 다루기
+```javascript
+// 다양한 사용자 입력 태그
+<input type="text" />
+<input type="range" />
+<input type="date" />
+<input type="number" />
+<textarea></textarea>
+<select></select>
+```
 ## 13. input 2 : 블로그 글 발행 기능 만들기
+결과 1 : 컴포넌트 state 변수 및 변경 함수
+- ![Alt text](<images/12 - Ch 11 결과 - 1.PNG>)
+- ![Alt text](<images/13 - Ch 11 결과 - 2.PNG>)
+결과 2 : 컴포넌트 내부에서 state 변경 작동 로직
+- ![Alt text](<images/14 - Ch 11 결과 - 3.PNG>)
+- ![Alt text](<images/15 - Ch 11 결과 - 4.PNG>)
 ## 14. class를 이용한 옛날 React 문법
+
+
 ## 15. 만든 리액트 사이트를 build & Github Pages로 배포해보기
+### build
+만든 사이트 배포하기 : App.js 그대로 올리는 것이 아닌
+- build용 파일 생성 후, 그걸 올려야 함
+- 웹브라우저는 HTML, CSS, JS만 해석 가능(state, JSX 해석 못함)
+    - 리액트 프로젝트를 build 시, 브라우저 친화적인 파일로 바꿔줌
+- build 후 무료로 HTML 파일을 호스팅해주는 Github Pages를 이용해 배포해보기
+- npm run build -> build/index.html 파일 생성됨
+    - 콘솔창, 터미널 에러만 없으면 됨
+- 사이트 배포 시, 
+    - https://codingapple.com/에 배포 -> 설정 필요 X
+    - https://codingapple.com/blog/에 배포 -> 설정 따로 필요 X
+        - package.json 파일에서
+        - "homepage" : "https://codingapple.com/blog"
+        - 리액트 라우터 설치되어 있으면, 라우터가 제공하는 basename="" 속성을 추가하는 게 좋음
+        - [리액트 라우터](https://create-react-app.dev/docs/deployment/#building-for-relative-paths)
+
+- build : 우리가 작성한 state, JSX, 컴포넌트, props 등을 브라우저가 해석할 수 있도록 CSS, JS, HTML 문법으로 바꿔주는 작업(컴파일)
+    - npm run build
