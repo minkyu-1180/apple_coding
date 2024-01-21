@@ -1,5 +1,14 @@
+.main-bg {
+  height: 300px;
+  background-image: url('./img/bg.png');
+  /* 사이즈 맞추기(동적) */
+  background-size: cover; 
+  background-position: center;
+}
+
 .App {
   text-align: center;
+  letter-spacing: -0.8px;
 }
 
 .App-logo {
