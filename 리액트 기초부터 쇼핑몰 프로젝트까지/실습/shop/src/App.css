@@ -1,14 +1,18 @@
+/* custom css */
 .main-bg {
   height: 300px;
-  background-image: url('./img/bg.png');
-  /* 사이즈 맞추기(동적) */
-  background-size: cover; 
+  /* css 파일에서 src 안의 이미지 넣기 */
+  /* ./이미지경로 */
+  background-image: url('./images/bg.png');
+  /* 사진이 커서 사이즈 조절 */
+  background-size: cover;
+  /* 사진 기준점 조절 */
   background-position: center;
 }
 
+
 .App {
   text-align: center;
-  letter-spacing: -0.8px;
 }
 
 .App-logo {
