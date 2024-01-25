@@ -12,45 +12,37 @@ import shoes from './datas/shoes.js';
 import Detail from './pages/Detail.js';
 import Card from './component/Card.js';
 // 라우터
-import { Routes, Route, Link } from 'react-router-dom';
-
-// Col 부분을 카드 컴포넌트로 바꾸기
-// component 폴더로 이동했음...
-// function Card (props) {
-//   return (
-//       <Col md={4}>
-//           <Image src={process.env.PUBLIC_URL + props.shoe.imageUrl} width="80%" />
-//           <h3>상품 이름 : {props.shoe.title}</h3>
-//           <p>상품 설명 : {props.shoe.content}</p>
-//           <p>상품 가격 : {props.shoe.price}</p>
-//           <Link to={`/detail`}>상세 정보</Link>
-//           {/* <Link to={`/detail/${props.shoe.id}`}>상세 정보</Link> */}
-//       </Col>
-//   )
-// }
-
+import { Routes, Route, Outlet, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function App() {
+
   // 앞에서 가져온 데이터 가져다 쓰기!
   let [shoeList, setShoeList] = useState(shoes);
   // console.log(shoeList)
+
+  let navigate = useNavigate();
+  
   // 상품 추가
   function addShoe (shoe) {
     let newShoeList = [...shoeList];
     newShoeList.push(shoe);
     setShoeList(newShoeList);
   }
+
   return (
     <div className="App">
       {/* 네비게이션 바 */}
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="light" data-bs-theme="light">
         <Container>
           <Navbar.Brand href="#home">민규의신발</Navbar.Brand>
           <Nav className="me-auto">
-          {/* 링크 태그 -> 라우팅 */}
-          <Link to="/">홈</Link> 
-          <p> | </p>
-          <Link to="/detail">상세 페이지</Link>
+            
+            <Nav.Link onClick={() => { navigate('/')}}>홈</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/about')}}>어바웃</Nav.Link>
+            <Nav.Link onClick={() => { navigate(-1)}}>뒤로가기</Nav.Link>
+            <Nav.Link onClick={() => { navigate(1)}}>앞으로가기</Nav.Link>
+
           </Nav>
         </Container>
       </Navbar>
@@ -72,31 +64,56 @@ function App() {
                       <Card 
                         // 매핑 시 키값 부여 잊지 맙시다
                         key={shoe.id}
-                        index={index}
-                        shoe={shoe}
+                        id={shoe.id}
+                        shoes={shoes}
                       />
                     </>
                   ))}
                 </Row>
               </Container>
+              <button onClick={() => {
+                // axios를 활용하여 url로 get 요청 보내기
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((res) => { 
+                  // { res.data.map((x, index) => {
+                  //   x.imageUrl = 
+                  // })}
+                  console.log(res.data)
+                 })
+                 .catch((error) => {
+                  console.log(error)
+                 })
+              }}>상품 </button>
               </>
             }/>
         {/* 상세 페이지 */}
         <Route 
-          path="/detail"
+          path="/detail/:id"
           // src/Detail.js의 Detail 컴포넌트 가져와서 사용하기
-          element={<Detail />}  
+          element={
+          <Detail 
+            shoes={shoes}
+          />}  
         />
         {/* 어바웃 페이지 */}
-        <Route 
-          path="/about"
-          element={<div>어바웃 페이지 용</div>}
-        />
+        {/* nested routing */}
+        <Route path="/about" element={<About />}>
+          <Route path="member" element={<div>멤버 어바웃</div>} />
+          <Route path="location" element={<div>장소 어바웃</div>} />
+        </Route>
       </Routes>
-
-
     </div>
   );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사 정보 어바웃 </h4>
+      {/* nested router 나타나는 영역 */}
+      <Outlet></Outlet>
+    </div>
+  )
 }
 
 export default App;
